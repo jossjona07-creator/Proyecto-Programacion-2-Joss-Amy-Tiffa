@@ -1,60 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using CapaLogica; // Importamos la capa lógica para usar CN_Paciente
 
-namespace AGENDA_MEDICA
+namespace CapaPresentacion
 {
     public partial class Form1 : Form
     {
-        // Instanciamos pacientes creado en la CapaLogica
-        private ServicioPaciente servicio = new ServicioPaciente();
+        private CN_Paciente objetoCN = new CN_Paciente();
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-                // Creamos el objeto Paciente y le asignamos los valores de las cajas de texto
-                Paciente nuevoPaciente = new Paciente();
-                nuevoPaciente.Identificacion = txtIdentificacion.Text;
-                nuevoPaciente.Nombre = txtNombre.Text;
-                nuevoPaciente.Apellidos = txtApellidos.Text;
-                nuevoPaciente.AnioNacimiento = int.Parse(txtAnioNacimiento.Text);
-                nuevoPaciente.Telefono = txtTelefono.Text;
-                nuevoPaciente.Correo = txtCorreo.Text;
-                nuevoPaciente.Direccion = txtDireccion.Text;
-
-                // Guardamos el paciente usando el servicio de la Capa Lógica
-                servicio.AgregarPaciente(nuevoPaciente);
-
-                //Actualizamos el DataGridView para que refleje la lista actualizada
-                dataGridView1.DataSource = null;
-                dataGridView1.DataSource = servicio.ObtenerPacientes();
-
-                // Mensaje de éxito y limpieza de campos
-                MessageBox.Show("¡Paciente guardado exitosamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                txtIdentificacion.Clear();
-                txtNombre.Clear();
-                txtApellidos.Clear();
-                txtAnioNacimiento.Clear();
-                txtTelefono.Clear();
-                txtCorreo.Clear();
-                txtDireccion.Clear();
+                // Llamamos a la lógica y cargamos los datos en el DataGridView
+                dataGridView1.DataSource = objetoCN.ListarPacientes();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error al guardar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al cargar los datos: " + ex.Message);
             }
         }
     }

@@ -1,27 +1,30 @@
 ﻿using System;
+using System.Configuration;
 using MySql.Data.MySqlClient;
 
 namespace CapaDatos
 {
     public class ConexionBD
     {
-        private string cadenaConexion = "Server=localhost;Database=AgendaMedicaDB;Uid=root;Pwd=;";
-
         public MySqlConnection ObtenerConexion()
         {
-            MySqlConnection conexion = new MySqlConnection(cadenaConexion);
+            ConnectionStringSettings configuracion = ConfigurationManager.ConnectionStrings["AgendaMedica"];
+            if (configuracion == null || string.IsNullOrWhiteSpace(configuracion.ConnectionString))
+            {
+                throw new InvalidOperationException("No está configurada la conexión 'AgendaMedica'. Revise CapaPresentacion/App.config.");
+            }
+
+            MySqlConnection conexion = new MySqlConnection(configuracion.ConnectionString);
             try
             {
-                if (conexion.State == System.Data.ConnectionState.Closed)
-                {
-                    conexion.Open();
-                }
+                conexion.Open();
+                return conexion;
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
-                throw new Exception("Error al conectar a la base de datos: " + ex.Message);
+                conexion.Dispose();
+                throw new InvalidOperationException("No se pudo conectar a MySQL. Verifique que el servicio esté iniciado, que exista AgendaMedicaDB y que los datos de acceso estén correctos.", ex);
             }
-            return conexion;
         }
     }
 }

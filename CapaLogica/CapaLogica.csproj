@@ -41,7 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CN_Cita.cs" />
+    <Compile Include="CN_Especialidad.cs" />
+    <Compile Include="CN_Medico.cs" />
     <Compile Include="CN_Paciente.cs" />
+    <Compile Include="CN_HistorialMedico.cs" />
+    <Compile Include="CN_Reportes.cs" />
+    <Compile Include="CN_MedicoEspecialidad.cs" />
     <Compile Include="ENTIDADES\Cita.cs" />
     <Compile Include="ENTIDADES\Especialidad.cs" />
     <Compile Include="ENTIDADES\HistorialMedico.cs" />

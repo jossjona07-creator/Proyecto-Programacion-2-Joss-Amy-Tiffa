@@ -87,6 +87,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CD_Cita.cs" />
+    <Compile Include="CD_Especialidad.cs" />
+    <Compile Include="CD_Medico.cs" />
+    <Compile Include="CD_HistorialMedico.cs" />
+    <Compile Include="CD_Reportes.cs" />
+    <Compile Include="CD_MedicoEspecialidad.cs" />
     <Compile Include="CD_Paciente.cs" />
     <Compile Include="ConexionBD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
